@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_filter :authenticate_user!
+
   def new
     @event = Event.new :routine => 'off'
   end
@@ -18,6 +20,11 @@ class EventsController < ApplicationController
       month = params[:day].split("_")[1]
       day = params[:day].split("_")[2]
       @days_events = Event.where(['start > ? AND routine = "off" AND start < ?', Date.parse("#{day}.#{month}.#{year}").beginning_of_day, Date.parse("#{day}.#{month}.#{year}").end_of_day]).all
+    else
+      year = Date.today.year
+      month = Date.today.month
+      last_day = Date.parse("#{year}.#{month}.01").end_of_month.day
+      @days_events = (1..last_day).to_a.map{|day| Event.where(['start > ? AND routine = "off" AND start < ?', Time.parse("#{day}.#{month}.#{year}").beginning_of_day, Time.parse("#{day}.#{month}.#{year}").end_of_day]).all + Event.joins(:repetitions).where(['start < ? AND routine = "mount"', Time.parse("#{day}.#{month}.#{year}")]).where(:repetitions => {:day => day}).all}
     end
   end
 

@@ -17,9 +17,9 @@ $(function() {
     selectFieldGroupVariant('event_routine');
   });
 
-  $('#select_week').bind('click', function() {
-    $('#select_week').parent().toggleClass('current');
-    $('#select_month').parent().toggleClass('current');
+  $('#routine_week').bind('click', function() {
+    $('#routine_week').parent().toggleClass('current');
+    $('#routine_month').parent().toggleClass('current');
     $('#event_routine').val('week');
     $(".for_month .one_line").each(function(index) {
       $(this).remove();
@@ -28,9 +28,9 @@ $(function() {
     return false;
   });
 
-  $('#select_month').bind('click', function() {
-    $('#select_week').parent().toggleClass('current');
-    $('#select_month').parent().toggleClass('current');
+  $('#routine_month').bind('click', function() {
+    $('#routine_week').parent().toggleClass('current');
+    $('#routine_month').parent().toggleClass('current');
     $('#event_routine').val('month');
     $(".weekdays input").each(function(index) {
       $(this).attr('checked', false);

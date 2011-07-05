@@ -18,45 +18,51 @@
     <%= yield :stylesheets %>
     <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
     <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js' %>
+    <%= javascript_include_tag 'datepicker-ru.js' %>
     <%= javascript_include_tag 'jquery-rails.js' %>
     <%= javascript_include_tag 'application.js' %>
     <%= yield :javascripts %>
     <%= csrf_meta_tag %>
   </head>
   <body>
-    <div class="header">
-      <script>
-        $(function() {
-          $( "#select_week" ).datepicker({
-            showOn: "button",
-            buttonImage: "/images/calendar.png",
-            showWeek: true,
-            buttonImageOnly: true
+    <% if user_signed_in? %>
+      <div class="header">
+        <script>
+          $(function() {
+            $( "#select_day" ).datepicker({
+              showOn: "button",
+              buttonImage: "/images/calendar.png",
+              buttonImageOnly: true,
+              dateFormat: "yy_m_dd"
+            });
+            $( "#select_week" ).datepicker({
+              showOn: "button",
+              buttonImage: "/images/calendar.png",
+              showWeek: true,
+              buttonImageOnly: true,
+              dateFormat: "yy_m_dd"
+            });
+            $( "#select_month" ).datepicker({
+              showOn: "button",
+              buttonImage: "/images/calendar.png",
+              buttonImageOnly: true,
+              changeMonth: true,
+              changeYear: true,
+              dateFormat: "yy_m"
+            });
           });
-          $( "#select_month" ).datepicker({
-            showOn: "button",
-            buttonImage: "/images/calendar.png",
-            buttonImageOnly: true,
-            changeMonth: true,
-            changeYear: true,
-          });
-          $( "#select_day" ).datepicker({
-            showOn: "button",
-            buttonImage: "/images/calendar.png",
-            buttonImageOnly: true
-          });
-        });
-      </script>
-      <ul>
-        <li>События</li>
-        <li><%= link_to 'дня', '' %><%= hidden_field_tag :select_day %></li>
-        <li class="current"><%= link_to 'недели', '' %><%= hidden_field_tag :select_week %></li>
-        <li class="select_month"><%= link_to 'месяца', '' %><%= hidden_field_tag :select_month %></li>
-      </ul>
-      <ul>
-        <%= link_to '+ Добавить событие', '', :class => 'button' %>
-      </ul>
-    </div>
+        </script>
+        <ul>
+          <li>События</li>
+          <li><%= link_to 'сегодня', "/events?day=#{Date.today.strftime("%Y_%m_%d")}" %><%= hidden_field_tag :select_day %></li>
+          <li class="current"><%= link_to 'этой недели', "/events?week=#{Date.today.strftime("%Y_%W")}" %><%= hidden_field_tag :select_week %></li>
+          <li class="select_month"><%= link_to 'этого месяца', "/events?month=#{Date.today.strftime("%Y_%m")}" %><%= hidden_field_tag :select_month %></li>
+        </ul>
+        <ul>
+          <%= link_to '+ Добавить событие', new_event_path, :class => 'button' %>
+        </ul>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
