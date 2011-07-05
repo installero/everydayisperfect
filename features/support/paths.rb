@@ -8,11 +8,12 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    when /^the home\s?page$/
-      '/'
-    when /the new events page/
-      new_events_path
-
+    when /^the events page for the (\d+)(?:st|nd|rd|th) month of the (\d+)(?:st|nd|rd|th) year$/
+      events_path(:month => "#{$2}_#{$1}")
+    when /^the events page for the (\d+)(?:st|nd|rd|th) week of the (\d+)(?:st|nd|rd|th) year$/
+      events_path(:week => "#{$2}_#{$1}")
+    when /^the events page for the (\d+)(?:st|nd|rd|th) day of the (\d+)(?:st|nd|rd|th) month of the (\d+)(?:st|nd|rd|th) year$/
+      events_path(:day => "#{$3}_#{$2}_#{$1}")
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

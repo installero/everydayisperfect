@@ -24,7 +24,39 @@
     <%= csrf_meta_tag %>
   </head>
   <body>
-    <div class="controls"></div>
+    <div class="header">
+      <script>
+        $(function() {
+          $( "#select_week" ).datepicker({
+            showOn: "button",
+            buttonImage: "/images/calendar.png",
+            showWeek: true,
+            buttonImageOnly: true
+          });
+          $( "#select_month" ).datepicker({
+            showOn: "button",
+            buttonImage: "/images/calendar.png",
+            buttonImageOnly: true,
+            changeMonth: true,
+            changeYear: true,
+          });
+          $( "#select_day" ).datepicker({
+            showOn: "button",
+            buttonImage: "/images/calendar.png",
+            buttonImageOnly: true
+          });
+        });
+      </script>
+      <ul>
+        <li>События</li>
+        <li><%= link_to 'дня', '' %><%= hidden_field_tag :select_day %></li>
+        <li class="current"><%= link_to 'недели', '' %><%= hidden_field_tag :select_week %></li>
+        <li class="select_month"><%= link_to 'месяца', '' %><%= hidden_field_tag :select_month %></li>
+      </ul>
+      <ul>
+        <%= link_to '+ Добавить событие', '', :class => 'button' %>
+      </ul>
+    </div>
     <%= yield %>
   </body>
 </html>

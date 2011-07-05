@@ -4,12 +4,21 @@ class EventsController < ApplicationController
   end
 
   def index
-    params[:month]
-    @days = 1..31
-    year = Time.now.year
-    month = Time.now.month
-    @max_days = 31
-    @days_events = (1..@max_days).to_a.map{|day| Event.where(['start > ? AND routine = "off" AND start < ?', Time.parse("#{day}.#{month}.#{year}").beginning_of_day, Time.parse("#{day}.#{month}.#{year}").end_of_day]).all + Event.joins(:repetitions).where(['start < ? AND routine = "mount"', Time.parse("#{day}.#{month}.#{year}")]).where(:repetitions => {:day => day}).all}
+    if params[:month]
+      year = params[:month].split("_")[0]
+      month = params[:month].split("_")[1]
+      last_day = Date.parse("#{year}.#{month}.01").end_of_month.day
+      @days_events = (1..last_day).to_a.map{|day| Event.where(['start > ? AND routine = "off" AND start < ?', Time.parse("#{day}.#{month}.#{year}").beginning_of_day, Time.parse("#{day}.#{month}.#{year}").end_of_day]).all + Event.joins(:repetitions).where(['start < ? AND routine = "mount"', Time.parse("#{day}.#{month}.#{year}")]).where(:repetitions => {:day => day}).all}
+    elsif params[:week]
+      year = params[:week].split("_")[0].to_i
+      week = params[:week].split("_")[1].to_i
+      @days_events = (1..7).to_a.map{|day| Event.where(['start > ? AND routine = "off" AND start < ?', Date.commercial(year, week, day).beginning_of_day, Date.commercial(year, week, day).end_of_day]).all}
+    elsif params[:day]
+      year = params[:day].split("_")[0]
+      month = params[:day].split("_")[1]
+      day = params[:day].split("_")[2]
+      @days_events = Event.where(['start > ? AND routine = "off" AND start < ?', Date.parse("#{day}.#{month}.#{year}").beginning_of_day, Date.parse("#{day}.#{month}.#{year}").end_of_day]).all
+    end
   end
 
   def create

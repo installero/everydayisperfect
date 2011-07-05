@@ -39,19 +39,48 @@ Feature: Manage events
         And a repetition should exist with day: "20", event: event "Смерть"
         And a repetition should exist with day: "20", event: event "Смерть"
 
-  @wip
   Scenario: Viewing events by month
     Given an event exists with description: "Рождение", start: "2011-07-05 14:55:00", routine: "off"
       And an event exists with description: "Второе рождение", start: "2011-07-25 15:20:00", routine: "off"
       And an event exists with description: "Третье рождение", start: "2011-07-25 18:40:00", routine: "off"
+      And an event exists with description: "Первая смерть", start: "2011-09-15 08:20:00", routine: "off"
+      And an event exists with description: "Вторая смерть", start: "2011-09-24 20:40:00", routine: "off"
+      And an event exists with description: "Третья смерть", start: "2011-09-26 19:40:00", routine: "off"
       #And an event "Свадьба" exists with description: "Свадьба", start: "2011-07-06 10:05:00", routine: "week"
       #And a repetition exists with day: "1", event: event "Свадьба"
       #And a repetition exists with day: "6", event: event "Свадьба"
       #And an event "Смерть" exists with description: "Смерть", start: "2011-07-30 17:55:00", routine: "month"
       #And a repetition exists with day: "20", event: event "Смерть"
       #And a repetition exists with day: "20", event: event "Смерть"
-    When I am on the events page
-      And show me the page
+    When I am on the events page for the 7th month of the 2011th year
     Then I should see "14:55 Рождение"
       And I should see "15:20 Второе рождение"
       And I should see "18:40 Третье рождение"
+      And I should not see "08:20 Первая смерть"
+    When I am on the events page for the 9th month of the 2011th year
+    Then I should not see "14:55 Рождение"
+      And I should see "08:20 Первая смерть"
+      And I should see "20:40 Вторая смерть"
+      And I should see "19:40 Третья смерть"
+
+  Scenario: Viewing events by week
+    Given an event exists with description: "Рождение", start: "2011-07-05 14:55:00", routine: "off"
+      And an event exists with description: "Второе рождение", start: "2011-07-25 15:20:00", routine: "off"
+      And an event exists with description: "Третье рождение", start: "2011-07-25 18:40:00", routine: "off"
+      And an event exists with description: "Первая смерть", start: "2011-09-15 08:20:00", routine: "off"
+      And an event exists with description: "Вторая смерть", start: "2011-09-24 20:40:00", routine: "off"
+      And an event exists with description: "Третья смерть", start: "2011-09-26 19:40:00", routine: "off"
+    When I am on the events page for the 30th week of the 2011th year
+    Then I should not see "14:55 Рождение"
+      And I should see "15:20 Второе рождение"
+
+  Scenario: Viewing events by day
+    Given an event exists with description: "Рождение", start: "2011-07-05 14:55:00", routine: "off"
+      And an event exists with description: "Второе рождение", start: "2011-07-25 15:20:00", routine: "off"
+      And an event exists with description: "Третье рождение", start: "2011-07-25 18:40:00", routine: "off"
+      And an event exists with description: "Первая смерть", start: "2011-09-15 08:20:00", routine: "off"
+      And an event exists with description: "Вторая смерть", start: "2011-09-24 20:40:00", routine: "off"
+      And an event exists with description: "Третья смерть", start: "2011-09-26 19:40:00", routine: "off"
+    When I am on the events page for the 24th day of the 9th month of the 2011th year
+    Then I should not see "19:40 Третья смерть"
+      And I should see "20:40 Вторая смерть"
