@@ -4,11 +4,12 @@ class EventsController < ApplicationController
   end
 
   def index
+    params[:month]
     @days = 1..31
-    @events = []
-    @days.each do |day|
-      @events[day] = Event.new :start => Time.now, :description => 'Test'
-    end
+    year = Time.now.year
+    month = Time.now.month
+    @max_days = 31
+    @days_events = (1..@max_days).to_a.map{|day| Event.where(['start > ? AND routine = "off" AND start < ?', Time.parse("#{day}.#{month}.#{year}").beginning_of_day, Time.parse("#{day}.#{month}.#{year}").end_of_day]).all + Event.joins(:repetitions).where(['start < ? AND routine = "mount"', Time.parse("#{day}.#{month}.#{year}")]).where(:repetitions => {:day => day}).all}
   end
 
   def create

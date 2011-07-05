@@ -1,22 +1,25 @@
 <table class="days">
   <tr>
-    <% for day in @days %>
+    <% @days_events.each_with_index do |day_events, i| %>
+      <% index = i + 1 %>
       <% td_class = "" %>
-      <% td_class = "top" if day < 7 %>
-      <% td_class = "bottom" if day > 28 %>
-      <% td_class = "right" if day%7 == 0 %>
-      <% td_class = "left" if day%7 == 1 %>
-      <% td_class = "top left" if day == 1 %>
-      <% td_class = "top right" if day == 7 %>
-      <% td_class = "bottom left" if day == 29 %>
-      <% td_class = "bottom right" if day == 31 %>
+      <% td_class = "top" if index < 7 %>
+      <% td_class = "bottom" if index > 28 %>
+      <% td_class = "right" if index%7 == 0 %>
+      <% td_class = "left" if index%7 == 1 %>
+      <% td_class = "top left" if index == 1 %>
+      <% td_class = "top right" if index == 7 %>
+      <% td_class = "bottom left" if index == 29 %>
+      <% td_class = "bottom right" if index == 31 %>
       <td class="<%= td_class %>">
         <div class="day">
-          <div class="e-bg"><%= day %></div>
-          <div class="event"><b><%= @events[day].start.strftime("%H:%M") %></b> <%= @events[day].description %></div>
+          <div class="e-bg"><%= index %></div>
+          <% day_events.each do |event| %>
+            <div class="event"><b><%= event.start.strftime("%H:%M") %></b> <%= event.description %></div>
+          <% end %>
         </div>
       </td>
-      <% if day%7 == 0 %>
+      <% if index%7 == 0 %>
         </tr><tr>
       <% end %>
     <% end %>
