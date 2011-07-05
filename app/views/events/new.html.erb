@@ -1,0 +1,9 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'datepicker-ru.js' %>
+  <%= javascript_include_tag 'timepicker-addon.js' %>
+  <%= javascript_include_tag "events/new" %>
+<% end %>
+<div class="inner">
+  <h1><%= t('.title') %></h1>
+  <%= render 'form' %>
+</div>

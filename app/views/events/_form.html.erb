@@ -1,0 +1,46 @@
+<%= form_for @event, :html => {:class => 'block'} do |f| %>
+  <% if @event.errors.any? %><% flash[:error] = t('.the_were_errors') %><% end %>
+    <div class="group">
+      <div class="field <%= 'with_errors' unless @event.errors[:description].blank? %>">
+        <%= f.label :description, t('.description') %>
+        <%= f.text_area :description %>
+        <p class="help"><%= t '.description_helper' %></p>
+      </div>
+      <div class="field <%= 'with_errors' unless @event.errors[:start].blank? %>">
+        <%= f.label :start, t('.start') %>
+        <%= f.text_field :start %>
+      </div>
+      <div class="checkbox field">
+        <%= check_box_tag :event_has_routine %>
+        <%= f.label :event_has_routine, t('.routine') %>
+      </div>
+      <div class="hidden field"><%= f.hidden_field :routine %></div>
+      <div class="field_group">
+        <ul class="choice field show_only for_week for_month">
+          <li class="current"><%= link_to t('.every_week'), "#", :id => 'select_week', :class => 'dynamic' %></li>
+          <li><%= link_to t('.every_month'), "#", :id => 'select_month', :class => 'dynamic' %></li>
+        </ul>
+        <div class="field show_only for_week">
+          <ul class="weekdays">
+            <% (0..6).each do |wd| %>
+              <li>
+                <p><%= t("weekdays.w#{wd}")%></p>
+                <%= check_box_tag "event_week_#{wd}".to_sym %>
+              </li>
+            <% end %>
+          <ul>
+        </div>
+        <div class="field show_only for_month">
+          <%= f.fields_for :repetitions do |rf| %>
+            <%= render 'repetition_fields', :f => rf, :destroy => false %>
+          <% end -%>
+          <div class="field">
+            <%= link_to_add_fields t('.add_repetition'), f, :repetitions, 'add_repetition' %>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="controls">
+    <%= f.submit t('.submit'), :id => 'submit', :disable_with => t('please_wait') %> <%= t('or') %> <%= link_to t('back'), '/' %>
+  </div>
+<% end %>

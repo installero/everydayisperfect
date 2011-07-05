@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Every Day Is Perfect</title>
+    <%= stylesheet_link_tag 'reset', :media => 'screen' %>
+    <%= stylesheet_link_tag 'style', :media => 'screen' %>
+    <%= stylesheet_link_tag 'jquery-ui/jquery-ui-1.8.4.custom.css', :media => 'screen' %>
+    <!--[if IE]><%= stylesheet_link_tag 'ie', :media => 'screen' %><![endif]-->
+    <!--[if IE 6]><%= stylesheet_link_tag 'ie6', :media => 'screen' %><![endif]-->
+    <!--[if !IE 7]>
+      <style type="text/css">
+        .wrap {display:table; height:100%}
+      </style>
+    <![endif]-->
+    <%= yield :stylesheets %>
+    <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+    <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js' %>
+    <%= javascript_include_tag 'jquery-rails.js' %>
+    <%= javascript_include_tag 'application.js' %>
+    <%= yield :javascripts %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div class="controls"></div>
+    <%= yield %>
+  </body>
+</html>

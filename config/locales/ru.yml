@@ -1,0 +1,27 @@
+ru:
+  events:
+    new:
+      title: 'Добавление события'
+    form:
+      description: 'Что планируете?'
+      description_helper: 'Введите описание события'
+      start: 'Начало события'
+      routine: 'Событие повторяется'
+      every_week: 'каждую неделю'
+      every_month: 'каждый месяц'
+      add_repetition: 'и ещё'
+      submit: 'Сохранить'
+    repetition_fields:
+      day: '-го числа'
+      destroy: 'Убрать'
+  please_wait: 'Подождите, пожалуйста'
+  or: 'или'
+  back: 'вернуться'
+  weekdays:
+    w0: 'пн.'
+    w1: 'вт.'
+    w2: 'ср.'
+    w3: 'чт.'
+    w4: 'пт.'
+    w5: 'сб.'
+    w6: 'вс.'
