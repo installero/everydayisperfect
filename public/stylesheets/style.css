@@ -42,13 +42,11 @@ table.days td .event {
   margin-bottom:0.5em;
   font-size:60%;
   background:#f0f0f0;
+  background: rgba(200, 240, 220, 0.5);
   text-align:left;
   padding:2px 5px;
   -moz-border-radius:5px;
-  -moz-opacity:0.5;
-  opacity:0.5;
 }
-
 
 form.block h2 {margin-bottom:1em}
 form.block .group {margin-bottom:1.5em; border-bottom:1px solid #d0d0d0; padding-bottom:1.5em}
