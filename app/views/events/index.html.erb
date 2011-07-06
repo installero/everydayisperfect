@@ -3,16 +3,7 @@
     <tr>
       <% @days_events.each_with_index do |day_events, i| %>
         <% index = i + 1 %>
-        <% td_class = "" %>
-        <% td_class = "top" if index < 7 %>
-        <% td_class = "bottom" if index > 28 %>
-        <% td_class = "right" if index%7 == 0 %>
-        <% td_class = "left" if index%7 == 1 %>
-        <% td_class = "top left" if index == 1 %>
-        <% td_class = "top right" if index == 7 %>
-        <% td_class = "bottom left" if index == 29 %>
-        <% td_class = "bottom right" if index == 31 %>
-        <td class="<%= td_class %>">
+        <td>
           <div class="day">
             <div class="e-bg"><%= index %></div>
             <% day_events.each do |event| %>
