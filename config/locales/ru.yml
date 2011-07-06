@@ -1,4 +1,13 @@
 ru:
+  activerecord:
+    models:
+      user: 'Пользователь'
+    attributes:
+      user:
+        email: 'Адрес электронной почты'
+        password: 'Пароль'
+        password_confirmation: 'Пароль ещё раз'
+        remember_me: 'Запомнить мои данные на несколько дней'
   events:
     new:
       title: 'Добавление события'
@@ -14,6 +23,17 @@ ru:
     repetition_fields:
       day: '-го числа'
       destroy: 'Убрать'
+  devise:
+    sessions:
+      new:
+        title: 'Вход в систему'
+        submit: 'Войти'
+        sign_up: 'Регистрация'
+    registrations:
+      new:
+        title: 'Регистрация'
+        submit: 'Зарегистрироваться'
+        sign_in: 'Вход в систему'
   please_wait: 'Подождите, пожалуйста'
   or: 'или'
   back: 'вернуться'

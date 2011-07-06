@@ -1,6 +1,7 @@
 <div class="inner">
-  <h1><%= t('.title') %></h1>
+  <h1><%= t('.title') %> | <%= link_to t('.sign_up'), new_user_registration_path %></h1>
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'block'}) do |f| %>
+    <%= devise_error_messages! %>
     <div class="group">
       <div class="field">
         <%= f.label :email %>
@@ -21,5 +22,4 @@
       <%= f.submit t('.submit'), :id => 'submit' %>
     </div>
   <% end %>
-  <%= render :partial => "devise/shared/links" %>
 </div>

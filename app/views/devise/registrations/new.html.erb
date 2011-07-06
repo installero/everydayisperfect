@@ -1,18 +1,23 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <p><%= f.label :email %><br />
-  <%= f.email_field :email %></p>
-
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
-
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><%= f.submit "Sign up" %></p>
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
+<div class="inner">
+  <h1><%= link_to t('.sign_in'), new_user_session_path %> | <%= t('.title') %></h1>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'block'}) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="group">
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+      </div>
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+      <div class="field">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+    </div>
+    <div class="controls">
+      <%= f.submit t('.submit'), :id => 'submit' %>
+    </div>
+  <% end %>
+</div>
