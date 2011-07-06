@@ -69,3 +69,4 @@ ru:
   date:
     formats:
       default: '%d.%m.%Y'
+  are_you_sure: 'Вы уверены?'
