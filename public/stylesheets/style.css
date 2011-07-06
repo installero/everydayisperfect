@@ -26,13 +26,17 @@ div.inner {width:800px; margin:40px auto}
 }
 
 table.days {width:95%; height:80%; margin:2.5% auto}
-table.days td {text-align:center; border:1px solid #c0c0c0; padding:5px; width:14.28%; height:20%}
+table.days th {height:6%; font-size:75%; color:#707070}
+table.days td {text-align:center; border:1px solid #c0c0c0; padding:5px; width:14.28%; height:16.67%}
 table.days td.right {border-right:none}
 table.days td.left {border-left:none}
 table.days td.top {border-top:none}
 table.days td.bottom {border-bottom:none}
 table.days div.day {position:relative; width:100%; height:100%}
 table.days td .e-bg {font-size:500%; color:#c0c0c0; position:absolute; bottom:0; right:0; z-index:-1}
+
+table.week td {height:auto; vertical-align:top}
+table.week td .e-bg {position:relative}
 
 table.days td .event {
   margin-bottom:0.5em;

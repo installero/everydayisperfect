@@ -55,9 +55,15 @@
         </script>
         <ul>
           <li>События</li>
-          <li><%= link_to 'сегодня', "/events?day=#{Date.today.strftime("%Y_%m_%d")}" %><%= hidden_field_tag :select_day %></li>
-          <li class="current"><%= link_to 'этой недели', "/events?week=#{Date.today.strftime("%Y_%W")}" %><%= hidden_field_tag :select_week %></li>
-          <li class="select_month"><%= link_to 'этого месяца', "/events?month=#{Date.today.strftime("%Y_%m")}" %><%= hidden_field_tag :select_month %></li>
+          <li class="<%= 'current' if params[:day] %>">
+            <%= link_to (params[:day] ? "#{l @fdate}" : 'сегодня'), "/events?day=#{Date.today.strftime("%Y_%m_%d")}" %><%= hidden_field_tag :select_day %>
+          </li>
+          <li class="<%= 'current' if params[:week] %>">
+            <%= link_to (params[:week] ? "#{@week}-й недели #{@year}-го года" : 'этой недели'), "/events?week=#{Date.today.strftime("%Y_%W")}" %><%= hidden_field_tag :select_week %>
+          </li>
+          <li class="<%= 'current' unless params[:week] || params[:day] %>">
+            <%= link_to (params[:month] ? "#{t("months.of_m#{@fdate.month}")} #{@year}" : 'этого месяца'), "/events?month=#{Date.today.strftime("%Y_%m")}" %><%= hidden_field_tag :select_month %>
+          </li>
         </ul>
         <ul>
           <%= link_to '+ Добавить событие', new_event_path, :class => 'button' %>

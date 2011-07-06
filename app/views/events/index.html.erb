@@ -1,18 +1,35 @@
 <% unless params[:day] %>
-  <table class="days">
+  <% first_wday = (@fdate.wday == 0 ? 7 : @fdate.wday) %>
+  <% last_wday = (@edate.wday == 0 ? 7 : @edate.wday) %>
+  <table class="<%= 'week' if params[:week] %> days">
+    <thead>
+      <% (0..6).each do |i| %>
+        <th><%= t("weekdays_full.w#{i}") %></th>
+      <% end %>
+    </thead>
     <tr>
+      <% if first_wday > 1 %>
+        <% (1..first_wday-1).each do |w| %>
+          <td></td>
+        <% end %>
+      <% end %>
       <% @days_events.each_with_index do |day_events, i| %>
         <% index = i + 1 %>
         <td>
           <div class="day">
-            <div class="e-bg"><%= index %></div>
+            <div class="e-bg"><%= @fdate.day + i %></div>
             <% day_events.each do |event| %>
               <div class="event"><b><%= event.start.strftime("%H:%M") %></b> <%= event.description %></div>
             <% end %>
           </div>
         </td>
-        <% if index%7 == 0 %>
+        <% if ((index+first_wday-1)%7 == 0) && (index < (params[:week] ? 7 : 31) ) %>
           </tr><tr>
+        <% end %>
+      <% end %>
+      <% if last_wday < 7 %>
+        <% (last_wday..6).each do |w| %>
+          <td></td>
         <% end %>
       <% end %>
     </tr>

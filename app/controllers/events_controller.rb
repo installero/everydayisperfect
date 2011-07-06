@@ -7,20 +7,25 @@ class EventsController < ApplicationController
 
   def index
     if params[:week]
-      year, week = params[:week].split("_").map(&:to_i)
-      @days_events = (1..7).to_a.map{|day| current_user.events.of_date(Date.commercial(year, week, day))}
+      @year, @week = params[:week].split("_").map(&:to_i)
+      @fdate = Date.commercial(@year, @week, 1)
+      @edate = @fdate.end_of_week
+      @days_events = (1..7).to_a.map{|day| current_user.events.of_date(Date.commercial(@year, @week, day))}
     elsif params[:day]
       year,month,day = params[:day].split("_")
+      @fdate = Date.parse("#{day}.#{month}.#{year}")
       @days_events = current_user.events.of_date(Date.parse("#{day}.#{month}.#{year}"))
     else
       if params[:month]
-        year, month = params[:month].split("_")
+        @year, @month = params[:month].split("_")
       else
-        year = Date.today.year
-        month = Date.today.month
+        @year = Date.today.year
+        @month = Date.today.month
       end
-      last_day = Date.parse("#{year}.#{month}.01").end_of_month.day
-      @days_events = (1..last_day).to_a.map{|day| current_user.events.of_date(Date.parse("#{day}.#{month}.#{year}"))}
+      @fdate = Date.parse("1.#{@month}.#{@year}")
+      @edate = @fdate.end_of_month
+      last_day = @fdate.end_of_month.day
+      @days_events = (1..last_day).to_a.map{|day| current_user.events.of_date(Date.parse("#{day}.#{@month}.#{@year}"))}
     end
   end
 
